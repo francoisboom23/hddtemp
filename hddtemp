@@ -1,0 +1,9 @@
+HDD=$(ls /dev |grep sd|cut -c1-3|uniq|paste -sd " " -) 
+
+for disk in $HDD
+do
+        if [ -e /dev/$disk ]; then
+        	HDTEMP=$( smartctl -A /dev/$disk |grep Temperature|cut -c88-89|uniq )
+        	echo "/dev/$disk: $HDTEMP C°"
+        fi
+done
